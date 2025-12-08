@@ -1,0 +1,42 @@
+/* Tarjeta del historial */
+.hist-card {
+    background: #ffffff;
+    padding: 14px;
+    margin: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.hist-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.hist-mov {
+    margin-top: 4px;
+    font-size: 1rem;
+}
+
+.hist-rol {
+    margin-top: 4px;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Filtros */
+.filtro-card select {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}

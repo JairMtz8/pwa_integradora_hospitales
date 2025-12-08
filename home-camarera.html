@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Inicio – Camarera</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="env.js" defer></script>
+  <script src="js/home-camarera.js" defer></script>
+</head>
+
+<body>
+  <header class="header">
+    <h2 id="titulo-camarera">Camarera</h2>
+  </header>
+
+  <main class="content page">
+    <section class="card camareras-toolbar">
+      <div class="toolbar-row">
+        <h3 style="margin:0;">Habitaciones</h3>
+
+        <div class="filter-toggle">
+          <button id="btn-filtro-asignadas" class="filter-pill active">
+            Asignadas
+          </button>
+          <button id="btn-filtro-todas" class="filter-pill">
+            Todas
+          </button>
+        </div>
+      </div>
+
+      <input id="search-hab" type="search"
+             placeholder="Buscar habitación (ej. A101)"
+             autocomplete="off" />
+    </section>
+
+    <section id="rooms-camarera-container" class="rooms-grid"></section>
+
+    <div id="rooms-camarera-pagination" class="pagination-container"></div>
+  </main>
+
+  <footer class="bottom-nav">
+    <button id="bottom-main-btn" class="bottom-main-btn">
+      <!-- Texto/icono lo pone JS -->
+    </button>
+  </footer>
+
+  <!-- MODAL INCIDENCIA -->
+  <div id="modal-incidencia" class="modal hidden">
+    <div class="modal-content">
+
+      <h2>Reportar incidente</h2>
+
+      <p id="modal-inc-habitacion" class="modal-hab"></p>
+
+      <label class="modal-label">Descripción del incidente:</label>
+      <textarea id="modal-inc-descripcion"
+                placeholder="Describe el incidente..."
+                rows="3"></textarea>
+
+      <label class="modal-label">Fotografías (máx 3):</label>
+      <button class="photo-opt" onclick="tomarFoto()">Tomar foto</button>
+
+     <input
+  type="file"
+  id="input-camara"
+  accept="image/*"
+  capture="camera"
+  multiple
+  class="hidden"
+/>
+
+
+      <div id="preview-fotos" class="preview-container"></div>
+
+      <div class="modal-actions">
+        <!-- ⬇️ ahora usa cancelarIncidencia() -->
+        <button class="btn-cancel" onclick="cancelarIncidencia()">Cancelar</button>
+        <button class="btn-save" onclick="guardarIncidencia()">Guardar incidencia</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+  <script src="js/firebase-config.js"></script>
+</body>
+</html>

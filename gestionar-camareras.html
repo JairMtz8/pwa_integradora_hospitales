@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestionar camareras</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="env.js" defer></script>
+  <script src="js/gestionar-camareras.js" defer></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <button onclick="history.back()" class="btn-back">←</button>
+    <h2>Gestionar camareras</h2>
+    <span style="width:32px;"></span>
+  </header>
+
+  <main class="content page">
+
+    <!-- TOOLBAR: buscador + alta -->
+    <section class="card camareras-toolbar">
+      <div class="toolbar-row">
+        <h3 style="margin:0;">Camareras registradas</h3>
+        <button id="btn-nueva-camarera" class="btn-small-dark">
+          + Nueva
+        </button>
+      </div>
+
+      <input
+        id="search-camarera"
+        type="search"
+        placeholder="Buscar por nombre"
+        autocomplete="off"
+      />
+    </section>
+
+    <!-- LISTA DE CHIPS -->
+    <section id="camareras-container" class="camareras-list"></section>
+
+    <!-- PAGINACIÓN -->
+    <div id="camareras-pagination" class="pagination-container"></div>
+
+  </main>
+
+  <!-- MENÚ INFERIOR (solo Inicio) -->
+  <footer class="bottom-nav">
+    <button id="bottom-main-btn" class="bottom-main-btn"></button>
+  </footer>
+
+</body>
+</html>

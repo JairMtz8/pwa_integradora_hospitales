@@ -1,0 +1,898 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f5f5;
+  color: #111827;
+  padding-bottom: 60px; /* espacio para menú inferior */
+}
+
+/* Animación de entrada */
+.page {
+  animation: pageFade 0.35s ease-out;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.header {
+  background: #111827;
+  color: #f9fafb;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Card genérica */
+.card {
+  background: #ffffff;
+  margin: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+/* Card notificaciones */
+.card-notificaciones {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  font-size: 26px;
+}
+
+/* Menú principal del home */
+.menu-grid {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.menu-item {
+  background: #e5e7eb;
+  color: #111827;
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Botones */
+button,
+input,
+select {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+button {
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  background: #1f1f1f;
+  color: #fff;
+  border: none;
+}
+
+button:hover {
+  background: #000;
+}
+
+
+button:hover {
+  background: #000000;
+}
+
+/* Botón secundario (si lo llegas a usar) */
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background: #d4d4d8;
+}
+
+/* Chips de camareras */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #d4d4d8;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.chip .chip-x {
+  font-weight: bold;
+  cursor: pointer;
+  color: #52525b;
+  font-size: 14px;
+}
+
+
+#rooms-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px;
+}
+
+.room-card {
+  background: #ffffff;
+  padding: 14px 0;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+/* Menú inferior con un solo botón */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #111827;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #1f2937;
+}
+
+.bottom-main-btn {
+  background: transparent;
+  border: none;
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.bottom-main-btn span.icon {
+  font-size: 18px;
+}
+
+.bottom-main-btn span.label {
+  font-size: 11px;
+}
+
+/* Lista de camareras */
+#select-camarera {
+  background: #ffffff;
+  border: 1px solid #c7c7c7;
+  color: #111;
+  height: 120px;
+}
+
+#select-camarera option {
+  padding: 8px;
+}
+
+#select-camarera option:hover {
+  background: #e5e5e5;
+}
+
+#select-camarera option:checked {
+  background: #d1d1d1 !important;
+  font-weight: bold;
+}
+
+.room-card {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+#btn-agregar-camarera {
+  display: none !important;
+}
+
+.card > * {
+  margin-bottom: 12px;
+}
+.card > *:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  margin-bottom: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+input, select, button {
+  margin-top: 4px;
+}
+
+.btn-back {
+  border: none;
+  background: #1f2937;
+  color: #f9fafb;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #d1d5db;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #111827;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* ===========================
+   LOGIN PAGE MODERNA
+   =========================== */
+
+.login-body {
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 20px;
+}
+
+/* Tarjeta principal */
+.login-card {
+  background: #ffffff;
+  padding: 24px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: left;
+  animation: fadeInUp 0.35s ease-out;
+}
+
+.login-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 18px;
+}
+
+/* Inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 14px;
+}
+
+/* Botón */
+.btn-login {
+  width: 100%;
+  background: #111827;
+  padding: 12px;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  background: #000;
+}
+
+/* Animación */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Toggle azul oscuro */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider.azul {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #d1d5db;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider.azul:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+/* Azul oscuro al activar */
+input:checked + .slider.azul {
+  background-color: #1e3a8a;
+}
+
+input:checked + .slider.azul:before {
+  transform: translateX(22px);
+}
+
+/* CHIP DISPONIBLE → AZUL OSCURO */
+.room-disponible {
+  background: #1e3a8a;  /* Azul oscuro */
+  color: #ffffff;
+  border: none;
+}
+
+/* CHIP NO DISPONIBLE → GRIS */
+.room-nodisponible {
+  background: #d1d5db; /* Gris claro */
+  color: #111827;
+  border: none;
+}
+
+/* ESTILO BASE (ya existe pero lo mejoramos) */
+.room-card {
+  padding: 14px 0;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  text-align: center;
+  width: 100%;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.page-btn {
+  padding: 8px 14px;
+  background: #1f1f1f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-weight: 600;
+  color: #111827;
+}
+
+
+/* ===== CAMARERAS ===== */
+
+.camareras-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-small-dark {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Lista vertical de chips */
+.camareras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 12px 12px 12px;
+}
+
+/* Chip de camarera (mobile first, full width) */
+.maid-chip {
+  display: flex;
+  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+}
+
+.maid-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.maid-main {
+  flex: 1;
+}
+
+.maid-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.maid-phone {
+  font-size: 13px;
+  color: #4b5563;
+  margin-bottom: 4px;
+}
+
+.maid-cred-row {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+.maid-cred-label {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.maid-cred-value {
+  color: #111827;
+}
+
+.password-value {
+  letter-spacing: 0.12em;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Paginación reutilizable */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 80px 12px; /* deja espacio al footer */
+  font-size: 13px;
+}
+
+.page-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  background: #e5e7eb;
+  color: #111827;
+  font-size: 13px;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+}
+
+.page-indicator {
+  color: #4b5563;
+}
+
+
+/* ===== HOME CAMARERA ===== */
+
+.camareras-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Segmento de filtro Asignadas / Todas */
+.filter-toggle {
+  display: inline-flex;
+  background: #e5e7eb;
+  padding: 3px;
+  border-radius: 999px;
+}
+
+.filter-pill {
+  border: none;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.filter-pill.active {
+  background: #111827;
+  color: #f9fafb;
+}
+
+/* Input del buscador en toolbar */
+.camareras-toolbar input[type="search"] {
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+}
+
+/* Grid de habitaciones para camarera (reusa room-card) */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px;
+}
+
+/* Botones de paginación (si no los tenías) */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.page-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 6px 12px;
+  background: #e5e7eb;
+  color: #111827;
+  font-size: 13px;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+}
+
+.page-indicator {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+/* ---- Chips de habitaciones para CAMARERA ---- */
+
+.rooms-grid .room-card {
+  position: relative;
+  overflow: hidden;
+  padding-top: 16px;           /* deja espacio para la barra de status */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Barra superior de status */
+.rooms-grid .room-status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 14px 14px 0 0;
+}
+
+/* Texto interno del chip */
+.rooms-grid .room-card-body {
+  text-align: center;
+}
+
+.rooms-grid .room-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.rooms-grid .room-status-text {
+  font-size: 11px;
+  color: #4b5563;
+}
+
+/* Colores por STATUS */
+.rooms-grid .status-limpia   .room-status-bar { background: #1d4ed8; } /* azul oscuro */
+.rooms-grid .status-revision .room-status-bar { background: #111827; } /* negro */
+.rooms-grid .status-incidente .room-status-bar { background: #d97706; }/* mostaza */
+
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  width: 90%;
+  max-width: 430px;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.modal-label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.photo-btns {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.photo-opt {
+  background: #000000;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+
+.preview-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.preview-container img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  background: #ccc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.btn-save {
+  background: #2563eb; /* azul tailwind */
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* CONTENEDOR GENERAL DEL MENÚ */
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  /* CENTRAR en pantalla */
+  width: 100%;
+  max-width: 450px;       /* evita que se pegue a los lados */
+  margin: 0 auto;         /* centra horizontalmente */
+  padding: 20px 16px;
+}
+
+/* TARJETAS DEL MENÚ */
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  background: #ffffff;
+  padding: 18px 20px;
+  border-radius: 14px;
+
+  text-decoration: none;
+  color: #1f2937;
+  font-size: 1.2rem;      /* mismo tamaño en todas */
+
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+
+  min-height: 70px;       /* 🔥 todas las tarjetas misma altura */
+  transition: 
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      background-color 0.18s ease;
+}
+
+/* Texto */
+.menu-card span {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* EFECTO HOVER */
+.menu-card:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  background-color: #f8fafc;
+}
+
+/* Evitar hover exagerado en dispositivos táctiles */
+@media (hover: none) {
+  .menu-card:hover {
+    transform: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  }
+}
+

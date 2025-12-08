@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Historial – Recepción</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/historial.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="env.js" defer></script>
+  <script src="js/historial.js" defer></script>
+</head>
+
+<body>
+
+<header class="header">
+  <h2>Historial de acciones</h2>
+</header>
+
+<main class="page">
+
+  <!-- FILTROS -->
+  <section class="card filtro-card">
+    <h3>Filtros</h3>
+
+    <label>Filtrar por rol:</label>
+    <select id="filtro-rol">
+      <option value="">Todos</option>
+      <option value="Camarera">Camarera</option>
+      <option value="Recepción">Recepción</option>
+    </select>
+
+    <button id="btn-aplicar" class="btn-primary">Aplicar</button>
+    <button id="btn-limpiar" class="btn-cancel">Limpiar</button>
+  </section>
+
+  <!-- LISTADO -->
+  <section id="historial-container"></section>
+
+  <!-- PAGINACIÓN -->
+  <div id="pagination" class="pagination-container"></div>
+
+</main>
+
+<footer class="bottom-nav">
+  <button class="bottom-main-btn" onclick="window.location.href='home.html'">⬅ Volver</button>
+</footer>
+
+</body>
+</html>

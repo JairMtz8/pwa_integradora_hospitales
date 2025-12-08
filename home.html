@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inicio – Recepción</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json" />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="env.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+
+  <script src="js/home.js" defer></script>
+</head>
+
+<body>
+
+  <!-- HEADER SUPERIOR -->
+  <header class="header">
+    <h2 id="titulo">Recepción</h2>
+  </header>
+
+  <!-- MENÚ PRINCIPAL (UNA OPCIÓN POR FILA COMO TARJETA) -->
+  <main class="menu-list">
+
+    <a href="gestionar-habitaciones.html" class="menu-card">
+      🏨
+      <span>Gestionar habitaciones</span>
+    </a>
+
+    <a href="visualizar-incidencias.html" class="menu-card">
+      📋
+      <span>Visualizar Incidencias</span>
+    </a>
+
+    <a href="gestionar-camareras.html" class="menu-card">
+      👩‍💼
+      <span>Gestionar camareras</span>
+    </a>
+
+    <a href="historial.html" class="menu-card">
+      📚
+      <span>Historial</span>
+    </a>
+
+  </main>
+
+  <!-- MENÚ INFERIOR -->
+  <footer class="bottom-nav">
+    <button id="bottom-main-btn" class="bottom-main-btn"></button>
+  </footer>
+
+</body>
+</html>
+

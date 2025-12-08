@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestionar habitaciones</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="env.js" defer></script>
+  <script src="js/gestionar-habitaciones.js" defer></script>
+</head>
+
+<body>
+
+  <!-- HEADER CON REGRESAR -->
+  <header class="header">
+    <button onclick="history.back()" class="btn-back">←</button>
+    <h2>Gestionar habitaciones</h2>
+    <span style="width:32px;"></span>
+  </header>
+
+  <main class="content">
+
+    <div class="card">
+      <h3>Crear nueva habitación</h3>
+
+      <label>Nombre (4 caracteres)</label>
+      <input id="hab-nombre" maxlength="4">
+
+      <button id="btn-crear-hab">Crear habitación</button>
+
+      <div id="hab-spinner" class="spinner" style="display:none;"></div>
+    </div>
+
+    <!-- Contenedor de asignación -->
+    <div id="asig-container" style="display:none;">
+      <div class="card">
+        <h3>Asignar camareras a <span id="hab-creada"></span></h3>
+
+        <input id="filtro-camarera" placeholder="Buscar camarera">
+
+        <select id="select-camarera" size="4"></select>
+        <button id="btn-agregar-camarera" class="btn-secondary">Agregar</button>
+
+        <div id="chips-camareras" class="chips-container"></div>
+
+        <button id="btn-asignar">Asignar</button>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">Habitaciones registradas</h3>
+    <div id="rooms-container"></div>
+    <div id="rooms-pagination" class="pagination-container"></div>
+
+
+  </main>
+
+  <!-- MENÚ INFERIOR -->
+<footer class="bottom-nav">
+  <button id="bottom-main-btn" class="bottom-main-btn">
+    <!-- El texto/icono lo pone JS según la página -->
+  </button>
+</footer>
+
+
+</body>
+</html>

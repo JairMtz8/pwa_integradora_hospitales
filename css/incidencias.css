@@ -1,0 +1,86 @@
+/* Tarjeta de incidencia */
+.incidencia-card {
+    background: #ffffff;
+    margin: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Encabezado */
+.incidencia-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.incidencia-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Descripción */
+.incidencia-desc {
+    margin-top: 6px;
+    margin-bottom: 10px;
+}
+
+/* Carrusel */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel img {
+    width: 100%;
+    display: none;
+}
+
+.carousel img.active {
+    display: block;
+}
+
+/* Botones del carrusel */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-btn.left {
+    left: 6px;
+}
+
+.carousel-btn.right {
+    right: 6px;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.page-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+}
+
+.page-btn:disabled {
+    background: #9ca3af;
+}
+
+
