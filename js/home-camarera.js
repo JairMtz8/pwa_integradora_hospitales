@@ -491,12 +491,21 @@ window.cancelarIncidencia = cancelarIncidencia;
 // ================== STATUS Y OFFLINE (lo que ya tenías) ==================
 
 async function actualizarStatusHabitacion(hab, nuevoStatus) {
+  if (!camareraActual || !camareraActual.id) {
+    Swal.fire("Error", "No se encontró la camarera actual.", "error");
+    return;
+  }
+
+  if (!nuevoStatus) {
+    Swal.fire("Error", "No se especificó el nuevo estado.", "error");
+    return;
+  }
+
   const data = {
     status: nuevoStatus,
-    camareraId: camareraActual.id
+    camareraId: String(camareraActual.id) // forzamos string
   };
 
-  // 1) Si no hay internet → guardar acción
   if (!navigator.onLine) {
     offlineQueue.push({
       type: "status-update",
@@ -520,7 +529,6 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     return;
   }
 
-  // 2) Si hay internet → enviar al backend
   try {
     const res = await fetch(`${API_BASE_URL}/habitaciones/${hab.id}/status`, {
       method: "PUT",
@@ -528,7 +536,10 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
       body: JSON.stringify(data)
     });
 
-    if (!res.ok) throw new Error("No se pudo actualizar el estado de la habitación.");
+    if (!res.ok) {
+      const msg = await res.text();
+      throw new Error(msg || "No se pudo actualizar el estado.");
+    }
 
     const habAct = await res.json();
 
