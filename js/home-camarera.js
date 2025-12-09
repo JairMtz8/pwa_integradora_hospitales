@@ -480,18 +480,6 @@ async function guardarIncidencia() {
   cargarHabitacionesParaCamarera();
 }
 
-// Enviar incidencia al SW cuando estamos sin red
-function guardarIncidenciaOffline(data) {
-  return navigator.serviceWorker.ready.then(reg => {
-    if (reg.active) {
-      reg.active.postMessage({
-        type: "SAVE_INCIDENCIA_OFFLINE",
-        payload: data
-      });
-    }
-  });
-}
-
 // ================== STATUS Y OFFLINE (lo que ya tenías) ==================
 
 async function actualizarStatusHabitacion(hab, nuevoStatus) {

@@ -7,5 +7,3 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.error("Error al registrar el SW", err));
   });
 }
-
-

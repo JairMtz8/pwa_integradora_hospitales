@@ -84,6 +84,19 @@ self.addEventListener("sync", (event) => {
   }
 });
 
+// =============
+// SYNC DE FOTOS PARA INCIDENCIAS
+// =============
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-incidencias") {
+    event.waitUntil(
+      self.clients.matchAll().then(clients => {
+        return clients[0].postMessage({ action: "SYNC_INCIDENCIAS" });
+      })
+    );
+  }
+});
+
 // Enviar cola al backend cuando vuelva Internet
 async function enviarCambiosPendientes() {
   const req = indexedDB.open("narvaez-db", 1);
