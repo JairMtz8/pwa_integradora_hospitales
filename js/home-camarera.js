@@ -1,6 +1,8 @@
 // home-camarera.js
 // Usa API_BASE_URL desde env.js
 
+import { guardarIncidenciaOffline } from "./offline-incidencias.js";
+
 window.addEventListener("offline", () => {
   Swal.fire({
     icon: "warning",

@@ -13,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="env.js" defer></script>
-  <script src="js/home-camarera.js" defer></script>
+  <script type="module" src="./js/home-camarera.js"></script>
 </head>
 
 <body>
@@ -36,9 +36,7 @@
         </div>
       </div>
 
-      <input id="search-hab" type="search"
-             placeholder="Buscar habitación (ej. A101)"
-             autocomplete="off" />
+      <input id="search-hab" type="search" placeholder="Buscar habitación (ej. A101)" autocomplete="off" />
     </section>
 
     <section id="rooms-camarera-container" class="rooms-grid"></section>
@@ -61,21 +59,12 @@
       <p id="modal-inc-habitacion" class="modal-hab"></p>
 
       <label class="modal-label">Descripción del incidente:</label>
-      <textarea id="modal-inc-descripcion"
-                placeholder="Describe el incidente..."
-                rows="3"></textarea>
+      <textarea id="modal-inc-descripcion" placeholder="Describe el incidente..." rows="3"></textarea>
 
       <label class="modal-label">Fotografías (máx 3):</label>
       <button class="photo-opt" onclick="tomarFoto()">Tomar foto</button>
 
-     <input
-  type="file"
-  id="input-camara"
-  accept="image/*"
-  capture="camera"
-  multiple
-  class="hidden"
-/>
+      <input type="file" id="input-camara" accept="image/*" capture="camera" multiple class="hidden" />
 
 
       <div id="preview-fotos" class="preview-container"></div>
@@ -95,4 +84,5 @@
 
   <script src="js/firebase-config.js"></script>
 </body>
+
 </html>
