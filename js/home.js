@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 if ("serviceWorker" in navigator) {
 
-  navigator.serviceWorker.register("/pwa-narvaez-hoteles-front/firebase-messaging-sw.js")
+  navigator.serviceWorker.register("/pwa_integradora_hospitales/firebase-messaging-sw.js")
     .then(reg => {
       console.log("✔ FCM SW registrado:", reg);
 
