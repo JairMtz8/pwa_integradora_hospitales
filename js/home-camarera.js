@@ -491,6 +491,13 @@ window.cancelarIncidencia = cancelarIncidencia;
 // ================== STATUS Y OFFLINE (lo que ya tenías) ==================
 
 async function actualizarStatusHabitacion(hab, nuevoStatus) {
+  console.log("🔍 Validando datos:", { hab, camareraActual });
+
+  if (!hab || !hab.id) {
+    Swal.fire("Error", "Habitación inválida.", "error");
+    return;
+  }
+
   if (!camareraActual || !camareraActual.id) {
     Swal.fire("Error", "No se encontró la camarera actual.", "error");
     return;
@@ -501,10 +508,13 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     return;
   }
 
+  // 🔥 INTENTA CON NÚMERO EN LUGAR DE STRING
   const data = {
     status: nuevoStatus,
-    camareraId: String(camareraActual.id) // forzamos string
+    camareraId: Number(camareraActual.id) // ← Cambio aquí
   };
+
+  console.log("📤 Enviando datos:", data); // ← Agrega este log
 
   if (!navigator.onLine) {
     offlineQueue.push({
@@ -536,13 +546,14 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
       body: JSON.stringify(data)
     });
 
+    // 🔥 MEJORA EL MANEJO DE ERRORES
     if (!res.ok) {
-      const msg = await res.text();
-      throw new Error(msg || "No se pudo actualizar el estado.");
+      const errorData = await res.json().catch(() => ({ message: "Error desconocido" }));
+      console.error("❌ Error del servidor:", errorData);
+      throw new Error(errorData.message || `Error ${res.status}: ${res.statusText}`);
     }
 
     const habAct = await res.json();
-
     Swal.fire({
       icon: "success",
       title: "Estado actualizado",
@@ -553,7 +564,7 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
 
     cargarHabitacionesParaCamarera();
   } catch (err) {
-    console.error(err);
+    console.error("❌ Error completo:", err);
     Swal.fire("Error", err.message, "error");
   }
 }
