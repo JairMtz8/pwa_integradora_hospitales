@@ -2,7 +2,7 @@
 import db from "./pouchdb-config.js";
 import { subirFotosAStorage } from "./subirFotosAStorage.js";
 
-const API_BASE_URL = "https://192.168.100.184:8080/api";
+const API_BASE_URL = "http://192.168.100.184:8080/api";
 
 /**
  * Sincroniza todas las incidencias guardadas en PouchDB
