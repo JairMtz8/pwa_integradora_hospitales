@@ -1,7 +1,12 @@
 // home-camarera.js
 // Usa API_BASE_URL desde env.js
 
-import { guardarIncidenciaOffline } from "./offline-incidencias.js";
+import {
+  guardarIncidenciaOffline,
+  sincronizarIncidenciasPendientes
+} from "./offline-incidencias.js";
+
+// ================== LISTENERS GLOBALES ==================
 
 window.addEventListener("offline", () => {
   Swal.fire({
@@ -22,6 +27,32 @@ window.addEventListener("online", () => {
     showConfirmButton: false
   });
 });
+
+// 🔥 NUEVO: Listener para mensajes del Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('message', async (event) => {
+    if (event.data && event.data.action === 'SYNC_INCIDENCIAS') {
+      console.log("📨 Service Worker solicita sincronización de incidencias");
+
+      try {
+        await sincronizarIncidenciasPendientes();
+
+        // Recargar habitaciones después de sincronizar
+        cargarHabitacionesParaCamarera();
+
+        Swal.fire({
+          icon: "success",
+          title: "Incidencias sincronizadas",
+          text: "Las incidencias offline fueron enviadas correctamente",
+          timer: 3000,
+          showConfirmButton: false
+        });
+      } catch (error) {
+        console.error("❌ Error sincronizando incidencias:", error);
+      }
+    }
+  });
+}
 
 let camareraActual = null;
 
@@ -121,8 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Reconexión → sincronizar estados de habitaciones
-  window.addEventListener("online", () => {
+  // 🔥 MODIFICADO: Reconexión → sincronizar ESTADOS + INCIDENCIAS
+  window.addEventListener("online", async () => {
     Swal.fire({
       icon: "success",
       title: "Conexión recuperada",
@@ -131,7 +162,11 @@ document.addEventListener("DOMContentLoaded", () => {
       showConfirmButton: false
     });
 
-    sincronizarCambiosPendientes();
+    // Sincronizar cambios de estados
+    await sincronizarCambiosPendientes();
+
+    // 🔥 NUEVO: Sincronizar incidencias con fotos
+    await sincronizarIncidenciasPendientes();
   });
 
   // 7) Cargar habitaciones
@@ -404,7 +439,7 @@ async function subirFotosAStorage(nombreHabitacion) {
   return urls;
 }
 
-// ================== GUARDAR INCIDENCIA ==================
+// ================== GUARDAR INCIDENCIA (MODIFICADO) ==================
 
 async function guardarIncidencia() {
   const desc = document.getElementById("modal-inc-descripcion").value.trim();
@@ -419,14 +454,14 @@ async function guardarIncidencia() {
     return;
   }
 
-  // ---- MODO OFFLINE → guardar en SW + marcar estado offline ----
+  // ---- MODO OFFLINE ----
   if (!navigator.onLine) {
     await guardarIncidenciaOffline({
       habitacionId: habitacionIncidencia.id,
       habitacionNombre: habitacionIncidencia.nombre,
       camareraId: camareraActual.id,
       descripcion: desc,
-      fotos: fotosTomadas,           // BLOBs reales
+      fotos: fotosTomadas,
       timestamp: Date.now(),
       urlApi: `${API_BASE_URL}/incidencias`
     });
@@ -434,21 +469,24 @@ async function guardarIncidencia() {
     cerrarModalIncidencia();
     limpiarModalIncidencia();
 
-    // También marcamos la habitación como Incidente usando tu cola local
+    // Marcar habitación como Incidente offline
     await actualizarStatusHabitacion(habitacionIncidencia, "Incidente");
 
     Swal.fire({
       icon: "info",
       title: "Guardado sin Internet",
-      text: "La incidencia y las fotos se enviarán automáticamente cuando vuelva la conexión.",
-      timer: 2800,
+      html: `
+        <p>La incidencia y las fotos se guardaron localmente.</p>
+        <p>Se enviarán automáticamente cuando vuelva la conexión.</p>
+      `,
+      timer: 3000,
       showConfirmButton: false
     });
 
     return;
   }
 
-  // ---- MODO ONLINE → subir fotos y enviar directo ----
+  // ---- MODO ONLINE ----
   cerrarModalIncidencia();
 
   Swal.fire({
@@ -461,7 +499,13 @@ async function guardarIncidencia() {
   let urls = [];
 
   if (fotosTomadas.length > 0) {
-    urls = await subirFotosAStorage(habitacionIncidencia.nombre);
+    try {
+      urls = await subirFotosAStorage(habitacionIncidencia.nombre);
+    } catch (error) {
+      console.error("Error subiendo fotos:", error);
+      Swal.fire("Error", "No se pudieron subir las fotos. Inténtalo de nuevo.", "error");
+      return;
+    }
   }
 
   const incidencia = {
@@ -471,24 +515,33 @@ async function guardarIncidencia() {
     fotos: urls
   };
 
-  await fetch(`${API_BASE_URL}/incidencias`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(incidencia)
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}/incidencias`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(incidencia)
+    });
 
-  await actualizarStatusHabitacion(habitacionIncidencia, "Incidente");
+    if (!response.ok) {
+      throw new Error("Error al guardar la incidencia en el servidor");
+    }
 
-  Swal.fire("Guardado", "La incidencia fue registrada.", "success");
+    await actualizarStatusHabitacion(habitacionIncidencia, "Incidente");
 
-  cargarHabitacionesParaCamarera();
+    Swal.fire("Guardado", "La incidencia fue registrada correctamente.", "success");
+
+    cargarHabitacionesParaCamarera();
+
+  } catch (error) {
+    console.error("Error guardando incidencia:", error);
+    Swal.fire("Error", "No se pudo guardar la incidencia. Inténtalo de nuevo.", "error");
+  }
 }
 
 window.guardarIncidencia = guardarIncidencia;
 window.cancelarIncidencia = cancelarIncidencia;
 
-
-// ================== STATUS Y OFFLINE (lo que ya tenías) ==================
+// ================== STATUS Y OFFLINE ==================
 
 async function actualizarStatusHabitacion(hab, nuevoStatus) {
   console.log("🔍 Validando datos:", { hab, camareraActual });
@@ -508,13 +561,12 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     return;
   }
 
-  // 🔥 INTENTA CON NÚMERO EN LUGAR DE STRING
   const data = {
     status: nuevoStatus,
-    camareraId: Number(camareraActual.id) // ← Cambio aquí
+    camareraId: Number(camareraActual.id)
   };
 
-  console.log("📤 Enviando datos:", data); // ← Agrega este log
+  console.log("📤 Enviando datos:", data);
 
   if (!navigator.onLine) {
     offlineQueue.push({
@@ -530,8 +582,7 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     Swal.fire({
       icon: "info",
       title: "Sin conexión",
-      text: `El cambio a "${nuevoStatus}" se guardó.  
-            Se sincronizará cuando haya Internet.`,
+      text: `El cambio a "${nuevoStatus}" se guardó. Se sincronizará cuando haya Internet.`,
       timer: 3000,
       showConfirmButton: false
     });
@@ -546,7 +597,6 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
       body: JSON.stringify(data)
     });
 
-    // 🔥 MEJORA EL MANEJO DE ERRORES
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({ message: "Error desconocido" }));
       console.error("❌ Error del servidor:", errorData);
@@ -554,6 +604,7 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     }
 
     const habAct = await res.json();
+
     Swal.fire({
       icon: "success",
       title: "Estado actualizado",
@@ -563,6 +614,7 @@ async function actualizarStatusHabitacion(hab, nuevoStatus) {
     });
 
     cargarHabitacionesParaCamarera();
+
   } catch (err) {
     console.error("❌ Error completo:", err);
     Swal.fire("Error", err.message, "error");
@@ -595,12 +647,11 @@ async function sincronizarCambiosPendientes() {
 
     } catch (e) {
       console.warn("❌ Error al sincronizar, se reintentará después:", e);
-      // No vaciamos la cola para que se vuelva a intentar
       return;
     }
   }
 
-  // Si llegamos aquí, todo lo de la cola se intentó bien
+  // Si llegamos aquí, todo se sincronizó bien
   offlineQueue = [];
   localStorage.setItem("offlineQueue", JSON.stringify([]));
 
