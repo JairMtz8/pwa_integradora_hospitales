@@ -2,7 +2,7 @@
 import db from "./pouchdb-config.js";
 import { subirFotosAStorage } from "./subirFotosAStorage.js";
 
-const API_BASE_URL = "https://pwahotelesnavaez-production.up.railway.app/api";
+const API_BASE_URL = "https://192.168.100.184:8080/api";
 
 /**
  * Sincroniza todas las incidencias guardadas en PouchDB
