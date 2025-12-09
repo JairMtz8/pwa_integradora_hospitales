@@ -356,6 +356,8 @@ function tomarFoto() {
   input.click();
 }
 
+window.tomarFoto = tomarFoto;
+
 function mostrarPreviewFotos() {
   const cont = document.getElementById("preview-fotos");
   if (!cont) return;
@@ -481,6 +483,10 @@ async function guardarIncidencia() {
 
   cargarHabitacionesParaCamarera();
 }
+
+window.guardarIncidencia = guardarIncidencia;
+window.cancelarIncidencia = cancelarIncidencia;
+
 
 // ================== STATUS Y OFFLINE (lo que ya tenías) ==================
 
