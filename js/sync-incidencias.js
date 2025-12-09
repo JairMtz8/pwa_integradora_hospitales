@@ -2,7 +2,7 @@
 import db from "./pouchdb-config.js";
 import { subirFotosAStorage } from "./subirFotosAStorage.js";
 
-const API_BASE_URL = "https://TU_BACKEND/api"; // reemplaza tu URL
+const API_BASE_URL = "https://pwahotelesnavaez-production.up.railway.app/api";
 
 /**
  * Sincroniza todas las incidencias guardadas en PouchDB

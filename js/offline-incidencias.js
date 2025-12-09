@@ -6,9 +6,10 @@ import db from "./pouchdb-config.js";
  * @param {String} habitacion
  * @param {Blob[]} fotos
  */
-export async function guardarIncidenciaOffline(habitacion, fotos) {
-  const adjuntos = {};
+export async function guardarIncidenciaOffline(data) {
+  const { habitacionId, habitacionNombre, camareraId, descripcion, fotos, timestamp, urlApi } = data;
 
+  const adjuntos = {};
   for (let i = 0; i < fotos.length; i++) {
     adjuntos[`foto_${i + 1}.jpg`] = {
       content_type: "image/jpeg",
@@ -17,9 +18,14 @@ export async function guardarIncidenciaOffline(habitacion, fotos) {
   }
 
   const incidencia = {
-    _id: `incidencia_${Date.now()}`,
-    habitacion,
+    _id: `incidencia_${timestamp}`,
     tipo: "incidencia",
+    habitacionId,
+    habitacionNombre,
+    camareraId,
+    descripcion,
+    timestamp,
+    urlApi,
     _attachments: adjuntos
   };
 
@@ -28,3 +34,4 @@ export async function guardarIncidenciaOffline(habitacion, fotos) {
 
   return incidencia._id;
 }
+
